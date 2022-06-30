@@ -1,0 +1,13 @@
+#table1 tr td {
+	text-align: center;
+}
+
+#table1 tr {
+	border-spacing: 0;
+}
+
+#table1 td, #table1 th {
+	border: 1px solid #D4D4D4;
+	border-spacing: 0;
+	padding: 5px 20px;
+}
