@@ -9,15 +9,15 @@ $(document).ready(function() {
 
 			console.log(categoryCount);
 
-			var html = "<table><tbody><th>Category</th><th>No. of articles</th>";
+			var table1 = "<table><tbody><th>Category</th><th>No. of articles</th>";
 
 			_.forEach(categoryCount, function(value,category) {
-				html += "<tr><td>" + category + "</td><td>" + value + "</td></tr>";
+				table1 += "<tr><td>" + category + "</td><td>" + value + "</td></tr>";
 			});
 
-			html += "</tbody></table>";
+			table1 += "</tbody></table>";
 
-			$("#table1").html(html);
+			$("#table1").html(table1);
 
 			// filter odd IDs
 			let odd = _.filter(result, article => article.id % 2 === 1);
@@ -30,9 +30,23 @@ $(document).ready(function() {
 				.map((value, key) => ({ category: key, articles: value }))
 				.value();
 
-				for(i=0; i<filteredCat.length; i++) {
-					console.log(filteredCat[i])
+			var table2 = "<table><tbody><th>Category</th><th>Articles</th>"
+
+			for(i=0; i<filteredCat.length; i++) {
+				table2 += "<tr><td>" + filteredCat[i].category + "</td><td>";
+				for(j=0; j<filteredCat[i].articles.length; j++) {
+					// _.pick to only get values from id, title and author from each article
+					var articles = _.pick(filteredCat[i].articles[j], ['id','title', 'author']);
+					table2 += "<p>"
+					_.forEach(articles, function(articleInfo, key) {
+						table2 += "<span class='key'>" + key  + "</span>: " + articleInfo + "<br>";
+					});
 				};
+			};
+
+			table2 += "</p></td></tbody></table>";
+
+			$("#table2").html(table2);
 		},
 		error: function(err) {
 			console.log(err);
